@@ -77,5 +77,5 @@ CircularProgress.defaultProps = {
   tintColor: 'black',
   backgroundColor: '#e4e4e4',
   rotation: 90,
-  linecap: 'butt'
+  linecap: 'round'
 }
