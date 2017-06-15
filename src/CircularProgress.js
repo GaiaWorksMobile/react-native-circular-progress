@@ -22,10 +22,12 @@ export default class CircularProgress extends React.Component {
   }
 
   extractFill(fill) {
-    if (fill < 0.01 && fill > 0) {
+    if (fill == 0) {
+      return 0;
+    } else if (fill < 0.01 && fill > 0) {
       return 0.01;
     } else if (fill > 99.9 && fill < 100) {
-      return 99.5;
+      return 99.8;
     } else if (fill > 100) {
       return 100;
     }
@@ -45,14 +47,14 @@ export default class CircularProgress extends React.Component {
         <Surface
           width={size}
           height={size}>
-          <Group rotation={rotation - 90} originX={size/2} originY={size/2}>
+          <Group rotation={rotation - 90} originX={size / 2} originY={size / 2}>
             <Shape d={backgroundPath}
-                   stroke={backgroundColor}
-                   strokeWidth={width}/>
+              stroke={backgroundColor}
+              strokeWidth={width} />
             <Shape d={circlePath}
-                   stroke={tintColor}
-                   strokeWidth={width}
-                   strokeCap={linecap}/>
+              stroke={tintColor}
+              strokeWidth={width}
+              strokeCap={linecap} />
           </Group>
         </Surface>
         {
