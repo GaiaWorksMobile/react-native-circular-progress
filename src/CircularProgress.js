@@ -28,7 +28,9 @@ export default class CircularProgress extends React.Component {
       return 0.01;
     } else if (fill > 99.9 && fill < 100) {
       return 99.8;
-    } else if (fill > 100 && fill == 100) {
+    } else if (fill > 100) {
+      return 100;
+    } else if (fill = 100) {
       return 100;
     }
 
