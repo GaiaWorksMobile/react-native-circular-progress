@@ -3,6 +3,7 @@ import { View, Platform } from 'react-native';
 import { Surface, Shape, Path, Group } from '../../react-native/Libraries/ART/ReactNativeART';
 import MetricsPath from 'art/metrics/path';
 
+let lineCap = 'butt';
 export default class CircularProgress extends React.Component {
 
   circlePath(cx, cy, r, startDegree, endDegree) {
@@ -28,12 +29,20 @@ export default class CircularProgress extends React.Component {
   }
 
   render() {
-    const { size, width, tintColor, backgroundColor, style, rotation, linecap, children } = this.props;
-    const backgroundPath = this.circlePath(size / 2, size / 2, size / 2 - width / 2, 0, 260);
-
+    const { size, width, tintColor, backgroundColor, style, rotation, linecap, children, isComming } = this.props;
+    let backgroundPath = '';
+    let circlePath = '';
     const fill = this.extractFill(this.props.fill);
-    const circlePath = this.circlePath(size / 2, size / 2, size / 2 - width / 2, 0, 260 * fill / 100);
-
+    if (isComming == 'leave') {
+      backgroundPath = this.circlePath(size / 2, size / 2, size / 2 - width / 2, 0, 360 * .9999);
+      circlePath = this.circlePath(size / 2, size / 2, size / 2 - width / 2, 0, (360 * .9999) * fill / 100);
+      lineCap = 'butt';
+    } else {
+      backgroundPath = this.circlePath(size / 2, size / 2, size / 2 - width / 2, 0, 260);
+      circlePath = this.circlePath(size / 2, size / 2, size / 2 - width / 2, 0, (360 * .9999) * fill / 100);
+      lineCap = 'round';
+    }
+    // const circlePath = { isComming== 'leave' ? this.circlePath(size / 2, size / 2, size / 2 - width / 2, 0, (360 * .9999) * fill / 100) :  };
     return (
       <View style={style}>
         <Surface
@@ -73,5 +82,5 @@ CircularProgress.defaultProps = {
   tintColor: 'black',
   backgroundColor: '#e4e4e4',
   rotation: 90,
-  linecap: 'round'
+  linecap: lineCap,
 }
